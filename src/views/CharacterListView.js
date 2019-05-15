@@ -6,30 +6,41 @@ import { CharacterList } from "../components";
 import { fetchChars } from '../actions';
 
 class CharacterListView extends React.Component {
-  constructor() {
-    super();
-  }
 
+
+  
   componentDidMount() {
     this.props.fetchChars()
   }
 
   render() {
-    if (this.props.fetching) {
-      // return something here to indicate that you are fetching data
-      return (<span> LOADING </span>)
-    }
     return (
-      <div className="CharactersList_wrapper">
-        <CharacterList characters={this.props.characters} />
-      </div>
-    );
+        <div>
+            {this.props.fetching &&
+            // return something here to indicate that you are fetching data
+            (<span> LOADING </span>)
+            }
+            {this.props.error && (
+              <span>{this.props.error}</span>
+            )}      
+            <div className="CharactersList_wrapper">
+              <CharacterList characters={this.props.characters} />
+            </div>
+        </div>
+    )
   }
 }
 
-const mapStateToProps = state => ({
-  fetching: state.charsReducer.fetching,
-  characters: state.charsReducer.characters,
+// this is the same as code block 43 through 45
+// const mapStateToProps = state => ({
+//   fetching: state.charsReducer.fetching,
+//   characters: state.charsReducer.characters,
+//   error: state.charsReducer.error,
+// });
+
+// this is the same as above
+const mapStateToProps = ({ charsReducer }) => ({
+  ...charsReducer
 });
 
 // our mapStateToProps needs to have two properties inherited from state

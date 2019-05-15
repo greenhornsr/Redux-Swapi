@@ -9,13 +9,13 @@ export const FAILURE = 'FAILURE';
 
 export const fetchChars = () => dispatch => {
     dispatch({type: FETCHING});
-    axios.get('https://swapi.co/api/peopl/')
+    axios.get('https://swapi.co/api/people/')
     .then(res => {
-        console.log(res),
+        // console.log(res),
         dispatch({type: SUCCESS, payload: res.data });
     })
     .catch(err => {
-        console.log(err.response),
+        // console.log(err.response),
         dispatch({type: FAILURE, payload: `${err.response.status} ${err.response.statusText || " There is a glitch YOUR Matrix! "}`})
     })
 
